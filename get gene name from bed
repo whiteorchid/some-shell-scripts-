@@ -1,0 +1,23 @@
+
+1.首先简化gtf文件
+less  Homo_sapiens.GRCh37.87.gtf|grep -v "#" |awk '{if($3 ~ /gene/){print $0}}' |sed 's/^/chr/g'> Homo_sapiens.G
+注释信息，不考虑其它exon或是transcript信息的行
+
+2. 再次简化gtf文件，为bed格式，后续的信息列为gene name
+les Homo_sapiens.GRCh37.87.ensembl.gtf |cut -f 1,4,5,9|awk -F'\\s'  '{OFS="\t"}{print $1,$2,$3,$9}' |sed 's/"//g' |sed 's/;//g' > gene.gtf
+
+3. noname.txt 需要从进行转化格式
+dos2unix noname.txt
+
+4. 使用bedtools intersect
+srun -p P1 bedtools intersect -a noname.txt -b gene.gtf -loj  > result7.xls
+
+5. 结果中有重复注释的行，即一个片段对应多个注释的基因，因此，les result7.xls |cut -f 1-6,10 > result8.xls; awk '{v=$1" "$2" "$3" "$4" "$5" "$6;a[v]=a[v]","$7}END{fo
+9.xls
+
+6. 查看结果文件，发现有些(19个片段)没有对应出gene名字，les result9.xls | awk '{if($7 == ",."){print $0}}' |wc -l 这些通过NCBI (https://www.ncbi.nlm.nih.gov/genome/g
+29442 ; 对应gene为LOC727919.
+ 
+未能对应出来的发现查询出的都是以LOC开头的属于假基因。
+ 
+ 
