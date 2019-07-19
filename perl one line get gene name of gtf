@@ -1,0 +1,17 @@
+########################
+this command can handle gtf to just get the gene name and remove other info field, so you can 
+modify to get other like transcript id
+
+###########################################
+
+less aglient_sub3_anno.bed |perl -pe 's/\-(\s.*?)(gene_name.*?;).*/$2/' |perl -pe 's/\+(\s.*?)(gene_name.*?;).*/$2/'|perl -pe 's/\-(\s.*?)(gene_name.*?;).*/$2/' |sed 's/";//g'|sed 's/gene_name "//g' > aglient_sub3_anno.bed.brief
+
+#############################################
+sample input :
+
+ chr1    12080   12251   1       pseudogene      gene    11869   14412   +       gene_id "ENSG00000223972"; gene_name "DDX11L1"; gene_source "ensembl_havana"; gene_biotyp
+
+
+
+sample output:
+chr1    12080   12251   1       pseudogene      gene    11869   14412   DDX11L1
