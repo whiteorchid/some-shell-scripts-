@@ -15,3 +15,10 @@ sample input :
 
 sample output:
 chr1    12080   12251   1       pseudogene      gene    11869   14412   DDX11L1
+
+
+
+################################################3
+
+also tried awk, while not so prefect:
+les aglient_sub3_anno.bed |awk -F "\t|;" '{print $0}'|sed 's/ exon_number .\{,5\};//g' |awk -F "\t|;" '{print $1,$2,$3,$4,$5,$6,$7,$8,$9,$12}'|sed 's/"//g'|sed 's/ gene_name //g' > aglient_sub3_anno.bed.brief
