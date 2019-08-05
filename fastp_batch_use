@@ -1,0 +1,8 @@
+#!/bin/sh
+
+cat /mnt/bgfs/Customers/Analysis_personal/senguo/sea_urc/popmap|cut -f 1 |while read line
+do
+echo "/public1/Softwares/fastp-0.19.3/fastp -i /mnt/bgfs/Customers/Analysis_personal/senguo/sea_urc/sample/${line}.1.fq -o /mnt/bgfs/Customers/Analysis_personal/senguo/sea_urc/sample/fq/${line}.1.fq -I /mnt/bgfs/Customers/Analysis_personal/senguo/sea_urc/sample/${line}.2.fq -O /mnt/bgfs/Customers/Analysis_personal/senguo/sea_urc/sample/fq/${line}.2.fq  --length_required 100 -h /mnt/bgfs/Customers/Analysis_personal/senguo/sea_urc/sample/fq/${line}.html" > /mnt/bgfs/Customers/Analysis_personal/senguo/sea_urc/sample/sh/${line}.sh
+
+sbatch -p P8 /mnt/bgfs/Customers/Analysis_personal/senguo/sea_urc/sample/sh/${line}.sh
+done
