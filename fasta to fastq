@@ -1,0 +1,9 @@
+#!/bin/bash
+################ can use bbmap to do it and add the quality value
+cd /simulated_reads
+for i in `ls *fasta`
+do
+
+/soft/bbmap/reformat.sh  in=$i out=$i.fastq qfake=35
+
+done
